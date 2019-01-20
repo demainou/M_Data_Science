@@ -25,6 +25,9 @@ class Config(object):
     # experiment is running.
     NAME = None  # Override in sub-classes
 
+    #Optimizer
+    OPTIMIZER_METHOD = "SGD"
+
     # NUMBER OF GPUs to use. For CPU training, use 1
     GPU_COUNT = 1
 
