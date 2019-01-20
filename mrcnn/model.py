@@ -2145,9 +2145,25 @@ class MaskRCNN():
         metrics. Then calls the Keras compile() function.
         """
         # Optimizer object
-        optimizer = keras.optimizers.SGD(
-            lr=learning_rate, momentum=momentum,
-            clipnorm=self.config.GRADIENT_CLIP_NORM)
+
+        if config.OPTIMIZER_METHOD = "SGD":
+            optimizer = keras.optimizers.SGD(
+                lr=learning_rate, momentum=momentum,
+                clipnorm=self.config.GRADIENT_CLIP_NORM)
+
+        RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
+        elif config.OPTIMIZER_METHOD = "RMSprop":
+            optimizer = keras.optimizers.RMSProp(
+                lr=learning_rate, rho=0.9, epsilon=None, decay=0.0,
+                clipnorm=self.config.GRADIENT_CLIP_NORM)
+
+        elif config.OPTIMIZER_METHOD = "Adam":
+            optimizer = keras.optimizers.Adam(
+                lr=learning_rate, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False,
+                clipnorm=self.config.GRADIENT_CLIP_NORM)
+
+
+
         # Add Losses
         # First, clear previously set losses to avoid duplication
         self.keras_model._losses = []
@@ -2272,7 +2288,7 @@ class MaskRCNN():
         train_dataset, val_dataset: Training and validation Dataset objects.
         learning_rate: The learning rate to train with
         epochs: Number of training epochs. Note that previous training epochs
-                are considered to be done alreay, so this actually determines
+                are considered to be done already, so this actually determines
                 the epochs to train in total rather than in this particaular
                 call.
         layers: Allows selecting wich layers to train. It can be:
